@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "outDir": "./build/js",
+        "allowJs": true,
+        "target": "es6",
+        "module": "commonJS",
+        "moduleResolution": "node"
+    },
+    "include": ["control.ts"]
+}
