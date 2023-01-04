@@ -69,6 +69,7 @@ inputSetAttribute(inputName, {
     placeholder: "Enter name",
     required: "true",
     autofocus: "true",
+    value: "",
     style: "width: 100%; background-color: transparent; height: 35px; color: #fff; border-radius: 4px; font-size: 16px; border: 1px solid rgba(255,255,255,0.5); padding: 5px 10px; outline: none;",
 });
 
@@ -79,6 +80,7 @@ inputSetAttribute(inputAge, {
     placeholder: "Enter age",
     required: "true",
     autofocus: "false",
+    value: "",
     style: "width: 100%; background-color: transparent; height: 35px; color: #fff; border-radius: 4px; font-size: 16px; border: 1px solid rgba(255,255,255,0.5); padding: 5px 10px; outline: none;",
 });
 
@@ -161,7 +163,6 @@ function displayData(nameHere: HTMLInputElement, age: HTMLInputElement) {
 
             deleteBtn.setAttribute("id", `delete${item.id}`);
             deleteBtn.appendChild(deleteIcon);
-            // li.appendChild(deleteBtn);
 
             const editBtn = document.createElement("button");
             editBtn.setAttribute("id", `edit${item.id}`);
@@ -175,7 +176,6 @@ function displayData(nameHere: HTMLInputElement, age: HTMLInputElement) {
             actionBtnContainer.appendChild(deleteBtn);
             editBtn.appendChild(editIcon);
 
-            // li.appendChild(editBtn);
             li.appendChild(actionBtnContainer);
 
             list.appendChild(li);
@@ -197,10 +197,17 @@ function displayData(nameHere: HTMLInputElement, age: HTMLInputElement) {
                 age.value = itemFilter.age;
                 btn.innerHTML = "Update";
                 let hiddenInputId = document.createElement("input");
-                hiddenInputId.setAttribute("type", "hidden");
-                hiddenInputId.setAttribute("id", "hiddenInputId");
-                hiddenInputId.setAttribute("name", "hiddenInputId");
-                hiddenInputId.setAttribute("value", `${itemFilter.id}`);
+
+                inputSetAttribute(hiddenInputId, {
+                    type: "hidden",
+                    id: "hiddenInputId",
+                    name: "hiddenInputId",
+                    value: `${itemFilter.id}`,
+                    required: "",
+                    autofocus: "false",
+                    placeholder: "",
+                    style: "",
+                });
                 btn.parentNode!.insertBefore(hiddenInputId, btn);
             });
         });
@@ -218,6 +225,7 @@ function inputSetAttribute(
         name: string;
         placeholder: string;
         style: string;
+        value: string;
     }
 ) {
     name.setAttribute("required", `${data.required}`);
@@ -228,4 +236,7 @@ function inputSetAttribute(
     name.setAttribute("name", `${data.name}`);
     name.setAttribute("placeholder", `${data.placeholder}`);
     name.setAttribute("style", `${data.style}`);
+    if (data.type === "hidden") {
+        name.setAttribute("value", `${data.value}`);
+    }
 }
